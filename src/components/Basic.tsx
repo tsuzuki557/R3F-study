@@ -2,14 +2,17 @@ import React, { useRef, useState } from "react";
 import { Canvas, useFrame, ThreeElements } from "@react-three/fiber";
 
 function Box(props: ThreeElements["mesh"]) {
-  // This reference will give us direct access to the mesh
   const mesh = useRef<THREE.Mesh>(null!);
-  // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (mesh.current.rotation.x += delta));
-  // Return view, these are regular three.js elements expressed in JSX
+
+  useFrame((state, delta) => {
+    //console.log("tick");
+    //console.log(state, delta);
+    mesh.current.rotation.x += delta;
+    mesh.current.rotation.y -= delta;
+  });
+
   return (
     <mesh
       {...props}
