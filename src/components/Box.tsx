@@ -1,8 +1,6 @@
-import React, { useRef, useState } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
 import {
-  Canvas,
-  useFrame,
   ThreeElements,
   extend,
   useThree,
@@ -36,34 +34,7 @@ import { Perf } from "r3f-perf";
 //   }
 // }
 
-function Box(props: ThreeElements["mesh"]) {
-  const mesh = useRef<THREE.Mesh>(null!);
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
-
-  useFrame((state, delta) => {
-    //console.log("tick");
-    //console.log(state, delta);
-    mesh.current.rotation.x += delta;
-    mesh.current.rotation.y -= delta;
-  });
-
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-    </mesh>
-  );
-}
-
-function Sample(props: ThreeElements["mesh"]) {
+export function Box(props: ThreeElements["mesh"]) {
   const { camera, gl } = useThree();
 
   const boxRef = useRef<THREE.Mesh>(null!);
@@ -74,7 +45,7 @@ function Sample(props: ThreeElements["mesh"]) {
       name: "World",
       perfVisible: true,
       position: {
-        value: { x: 0, y: 0 },
+        value: { x: 0, y: -2 },
         min: -5,
         max: 5,
         step: 0.1,
@@ -146,16 +117,5 @@ function Sample(props: ThreeElements["mesh"]) {
         </mesh>
       </group>
     </>
-  );
-}
-
-export function Basic() {
-  return (
-    <Canvas>
-      {/* <ambientLight /> */}
-      <pointLight position={[10, 10, 10]} />
-      {/* <Box position={[-1.2, 0, 0]} /> */}
-      <Sample />
-    </Canvas>
   );
 }
