@@ -4,6 +4,8 @@ import { OrbitControls } from "@react-three/drei";
 
 import { Model01 } from "./Model01";
 
+import { Suspense } from "react";
+
 export const Model3D = () => {
   return (
     <>
@@ -24,7 +26,17 @@ export const Model3D = () => {
         <meshStandardMaterial color="greenyellow" />
       </mesh>
 
-      <Model01 />
+      {/* Suspenseでlazy Lodingしないと全体が読み込まれるまで真っ白になるので、とてもよくない */}
+      <Suspense
+        fallback={
+          <mesh position-y={0} scale={0.3}>
+            <boxGeometry args={[1, 1, 1, 2, 2, 2]} />
+            <meshBasicMaterial wireframe color="red" />
+          </mesh>
+        }
+      >
+        <Model01 />
+      </Suspense>
     </>
   );
 };
