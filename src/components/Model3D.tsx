@@ -3,6 +3,7 @@ import { Perf } from "r3f-perf";
 import { OrbitControls } from "@react-three/drei";
 
 import { Model01 } from "./Model01";
+import { Placeholder } from "./Placeholder";
 
 import { Suspense } from "react";
 
@@ -27,14 +28,7 @@ export const Model3D = () => {
       </mesh>
 
       {/* Suspenseでlazy Lodingしないと全体が読み込まれるまで真っ白になるので、とてもよくない */}
-      <Suspense
-        fallback={
-          <mesh position-y={0} scale={0.3}>
-            <boxGeometry args={[1, 1, 1, 2, 2, 2]} />
-            <meshBasicMaterial wireframe color="red" />
-          </mesh>
-        }
-      >
+      <Suspense fallback={<Placeholder />}>
         <Model01 />
       </Suspense>
     </>
