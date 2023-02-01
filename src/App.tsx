@@ -18,11 +18,11 @@ export function App() {
       {/* <ChangeStore /> */}
       {/* <ChangeStore02 /> */}
       <Canvas
-        camera={{ fov: 45, near: 0.1, far: 400, position: [0, 0, -2.0] }}
+        camera={{ fov: 45, near: 0.01, far: 4000, position: [0, 0, -1] }}
         onCreated={created}
       >
         {/* <ambientLight /> */}
-        <pointLight position={[10, 10, 10]} />
+        {/* <pointLight position={[10, 10, 10]} /> */}
         {/* <SampleBox position={[0, 0, 0]} /> */}
         {/* <Box /> */}
         <Model3D />

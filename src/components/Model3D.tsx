@@ -2,12 +2,16 @@ import { Perf } from "r3f-perf";
 import { useLoader } from "@react-three/fiber";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 
 import { OrbitControls } from "@react-three/drei";
 
 export const Model3D = () => {
-  const model = useLoader(GLTFLoader, "./hamburger.glb", (loader) => {
+  const model = useLoader(GLTFLoader, "./hamburger-draco.glb", (loader) => {
     console.log(loader);
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath("./draco/");
+    loader.setDRACOLoader(dracoLoader);
   });
   //console.log(model.scene);
 
@@ -33,7 +37,7 @@ export const Model3D = () => {
       {/* 以下だと読み込めない */}
       {/* {model.scene} */}
       {/* <model.scene /> */}
-      <primitive object={model.scene} scale={0.5} potion={[0, 0, -1]} />
+      <primitive object={model.scene} scale={0.2} potion={[0, 0, -1]} />
     </>
   );
 };
